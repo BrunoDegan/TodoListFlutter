@@ -1,8 +1,5 @@
 # Todo List Flutter
 
-Flutter TODO list studying project
+Flutter basic TODO list studying purpose project. This project is part of udemy Flutter especialization.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
 
