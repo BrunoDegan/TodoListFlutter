@@ -29,19 +29,23 @@ class _HomeState extends State<Home> {
 
     _readData().then((dataString) {
       setState(() {
-        _todoList = json.decode(dataString);
+        if (dataString != null) _todoList = json.decode(dataString);
       });
     });
   }
 
   void _addTodo() {
     setState(() {
+      if (_todoController.text.isEmpty) {
+        return;
+      }
+
       Map<String, dynamic> newTodo = Map();
       newTodo["title"] = _todoController.text;
-      _todoController.text = "";
       newTodo["ok"] = false;
       _todoList.add(newTodo);
       _saveData();
+      _todoController.text = "";
     });
   }
 
@@ -85,12 +89,12 @@ class _HomeState extends State<Home> {
                         labelStyle: TextStyle(color: Colors.blueAccent)),
                   ),
                 ),
-                RaisedButton(
-                  color: Colors.blueAccent,
-                  child: Text("Add"),
-                  textColor: Colors.white,
-                  onPressed: _addTodo,
-                )
+                TextButton(
+                    onPressed: _addTodo,
+                    child: Text("Add"),
+                    style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Colors.blueAccent))
               ],
             ),
           ),
@@ -170,8 +174,8 @@ class _HomeState extends State<Home> {
             duration: Duration(seconds: 2),
           );
 
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(snack);
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(snack);
         });
       },
     );
