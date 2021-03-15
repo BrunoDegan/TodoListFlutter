@@ -20,8 +20,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List _todoList = [];
   final _todoController = TextEditingController();
-  Map<String, dynamic> _lastRemoved;
-  int _lastRemovedPos;
+  late Map<String, dynamic> _lastRemoved;
+  late int _lastRemovedPos;
 
   @override
   void initState() {
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
     return file.writeAsString(data);
   }
 
-  Future<String> _readData() async {
+  Future<String?> _readData() async {
     try {
       final file = await _getFile();
       return file.readAsString();
@@ -174,8 +174,8 @@ class _HomeState extends State<Home> {
             duration: Duration(seconds: 2),
           );
 
-          Scaffold.of(context).removeCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(snack);
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(snack);
         });
       },
     );
